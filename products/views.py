@@ -10,8 +10,18 @@ from sales.response import ok_with_msg, ok_with_data, error_with_msg, error_with
 
 @api_view(['GET'])
 def getProduct(request):
+    name = request.query_params.get('name', None)
+    category_id = request.query_params.get('category_id', None)
+
     # get all the data from db
     products = Product.objects.all()
+
+    # filter
+    if name:
+        products = products.filter(name__icontains=name)
+    if category_id:
+        products = products.filter(category_id=category_id)
+
 
     # serialize and return it
     serializer = ProductSerializer(products, many=True)
