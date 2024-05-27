@@ -6,3 +6,7 @@ pbo_uas/__pycache__/
 sales/__pycache__/
 
 sales/migrations/__pycache__/
+
+products/__pycache__/
+
+products/migrations/__pycache__/
