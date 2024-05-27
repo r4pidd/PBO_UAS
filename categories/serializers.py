@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from sales.models import ProductCategory
+from pbo_uas.models import ProductCategory
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:

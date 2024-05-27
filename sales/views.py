@@ -1,10 +1,6 @@
-import json
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
-from django.template import loader
-from django.core import serializers
-from .models import Product,ProductCategory,Sale,SaleDetails
-from django.http import JsonResponse, JsonResponse
+from django.shortcuts import get_object_or_404
+from pbo_uas.models import Product,ProductCategory
+from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
@@ -30,7 +26,7 @@ def product_index(request):
                 "message": "Name and Category is required",
                 "success": 0
             })
-        
+
     else:
         return JsonResponse({
             "products": Product.objects.all(),
@@ -62,8 +58,8 @@ def product_details(request, id):
                 "message": "Name and Category is required",
                 "success": 0
             })
-        
-        
+
+
     return JsonResponse({
         "message": "Wrong method passed",
         "success": 0
@@ -97,7 +93,7 @@ def product_update(request, id):
                 "message": "Name and Category is required",
                 "success": 0
             })
-        
+
     return JsonResponse({
         "message": "Wrong method passed",
         "success": 0

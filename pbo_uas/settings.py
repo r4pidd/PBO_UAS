@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'sales',
     # "products.apps.ProductsConfig"
     'products',
+    'pbo_uas',
     'rest_framework',
     "categories.apps.CategoriesConfig",
     'corsheaders',

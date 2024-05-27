@@ -1,12 +1,9 @@
-from rest_framework import generics
-from rest_framework.response import Response
-from django.http import JsonResponse
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
-
 from products.serializers import ProductSerializer
-from sales.models import Product
-from sales.response import ok_with_msg, ok_with_data, error_with_msg, error_with_data
+from pbo_uas.models import Product
+from pbo_uas.response import ok_with_msg, ok_with_data, error_with_msg
+
 
 @api_view(['GET'])
 def getProduct(request):

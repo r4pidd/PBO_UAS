@@ -1,8 +1,8 @@
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
-from sales.models import ProductCategory
+from pbo_uas.models import ProductCategory
 from categories.serializers import CategorySerializer
-from sales.response import ok_with_msg, ok_with_data, error_with_msg, error_with_data
+from pbo_uas.response import ok_with_msg, ok_with_data, error_with_msg
 
 
 @api_view(['GET'])
