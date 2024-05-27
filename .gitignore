@@ -1,0 +1,8 @@
+
+.idea/
+
+pbo_uas/__pycache__/
+
+sales/__pycache__/
+
+sales/migrations/__pycache__/
