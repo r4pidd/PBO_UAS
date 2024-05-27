@@ -4,7 +4,6 @@ from django.db import models
 class ProductCategory(models.Model):
     name = models.CharField(max_length=64)
     desc = models.TextField(null=True)
-    employee = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)  
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -53,5 +52,3 @@ class SaleDetails(models.Model):
     sold_for = models.IntegerField()
     quantity = models.IntegerField()
     note = models.CharField(max_length=64)
-    
-    
