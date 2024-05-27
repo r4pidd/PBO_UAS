@@ -8,6 +8,7 @@ from pbo_uas.response import ok_with_msg, ok_with_data, error_with_msg
 @api_view(['GET'])
 def getCategory(request):
     name = request.query_params.get('name', None)
+    id = request.query_params.get('id', None)
 
     # get all the data from db
     categories = ProductCategory.objects.all()
@@ -15,6 +16,8 @@ def getCategory(request):
     # filter
     if name:
         categories = categories.filter(name__icontains=name)
+    if id:
+        categories = categories.filter(id=id)
 
     # serialize and return it
     serializer = CategorySerializer(categories, many=True)
