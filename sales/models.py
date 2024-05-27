@@ -19,9 +19,10 @@ class Product(models.Model):
     name = models.CharField(max_length=64)
     # category_id = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
     category_id = models.IntegerField()
-    iamge_path = models.TextField(null=True)
+    image_path = models.TextField(null=True)
     desc = models.TextField(null=True)
     price = models.IntegerField(default=0)
+    stock = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
