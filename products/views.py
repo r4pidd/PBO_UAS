@@ -57,7 +57,7 @@ def deleteProduct(request):
     # get id
     product_id = request.data.get('id')
     if not product_id:
-        return error_with_msg(msg='id is required!', code=400)
+        return error_with_msg(msg='id is required!')
 
     # check if the product exists
     product = get_object_or_404(Product, pk=product_id)
@@ -65,4 +65,4 @@ def deleteProduct(request):
     # delete the product
     product.delete()
 
-    return ok_with_msg(msg='Product deleted successfully!')
+    return ok_with_msg(msg='product deleted successfully!')
