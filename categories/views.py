@@ -7,11 +7,17 @@ from sales.response import ok_with_msg, ok_with_data, error_with_msg, error_with
 
 @api_view(['GET'])
 def getCategory(request):
+    name = request.query_params.get('name', None)
+
     # get all the data from db
-    products = ProductCategory.objects.all()
+    categories = ProductCategory.objects.all()
+
+    # filter
+    if name:
+        categories = categories.filter(name__icontains=name)
 
     # serialize and return it
-    serializer = CategorySerializer(products, many=True)
+    serializer = CategorySerializer(categories, many=True)
     return ok_with_data(data=serializer.data, msg='ok')
 
 
@@ -52,14 +58,14 @@ def updateCategory(request):
 @api_view(['DELETE'])
 def deleteCategory(request):
     # get id
-    product_id = request.data.get('id')
-    if not product_id:
+    category_id = request.data.get('id')
+    if not category_id:
         return error_with_msg(msg='id is required!')
 
-    # check if the product exists
-    product = get_object_or_404(ProductCategory, pk=product_id)
+    # check if the category exists
+    category = get_object_or_404(ProductCategory, pk=category_id)
 
-    # delete the product
-    product.delete()
+    # delete the category
+    category.delete()
 
     return ok_with_msg(msg='category deleted successfully!')
