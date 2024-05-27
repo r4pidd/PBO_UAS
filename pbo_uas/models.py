@@ -35,6 +35,7 @@ class Sale(models.Model):
     sale_no = models.CharField(max_length=32)
     date = models.DateField(auto_now_add=True)
     paid = models.IntegerField()
+    payment_method = models.CharField(max_length=32, default=' ')
     change = models.IntegerField()
     total_amount = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
