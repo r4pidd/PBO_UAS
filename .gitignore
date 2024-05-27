@@ -10,3 +10,7 @@ sales/migrations/__pycache__/
 products/__pycache__/
 
 products/migrations/__pycache__/
+
+categories/__pycache__/
+
+categories/migrations/__pycache__/

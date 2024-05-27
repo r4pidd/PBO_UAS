@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # "products.apps.ProductsConfig"
     'products',
     'rest_framework',
+    "categories.apps.CategoriesConfig"
 ]
 
 MIDDLEWARE = [
