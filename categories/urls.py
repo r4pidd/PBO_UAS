@@ -6,5 +6,5 @@ urlpatterns = [
     path('/<int:id>', views.getCategoryById, name='category_by_id'),
     path('/add', views.addCategory, name='add_category'),
     path('/update', views.updateCategory, name='update'),
-    path('/delete', views.deleteCategory, name='delete'),
+    path('/delete/<int:id>', views.deleteCategory, name='delete'),
 ]

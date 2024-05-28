@@ -69,14 +69,9 @@ def updateCategory(request):
 
 
 @api_view(['DELETE'])
-def deleteCategory(request):
-    # get id
-    category_id = request.data.get('id')
-    if not category_id:
-        return error_with_msg(msg='id is required!')
-
+def deleteCategory(request, id):
     # check if the category exists
-    category = get_object_or_404(ProductCategory, pk=category_id)
+    category = get_object_or_404(ProductCategory, pk=id)
 
     # delete the category
     category.delete()
