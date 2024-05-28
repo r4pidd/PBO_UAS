@@ -12,3 +12,14 @@ def getSale(request):
     # serialize and return it
     serializer = SaleSerializer(sales, many=True)
     return ok_with_data(data=serializer.data, msg='ok')
+
+
+@api_view(['POST'])
+def addSale(request):
+    serializer = SaleSerializer(data=request.data)
+
+    if serializer.is_valid():
+        serializer.save()
+        return ok_with_msg(msg='Sale created successfully!')
+    else:
+        return error_with_msg(msg=serializer.errors)
