@@ -25,6 +25,17 @@ def getProduct(request):
     return ok_with_data(data=serializer.data, msg='ok')
 
 
+@api_view(['GET'])
+def getProductById(request, id):
+    try:
+        category = Product.objects.get(pk=id)
+    except Product.DoesNotExist:
+        return error_with_msg(msg='product not found')
+
+    serializer = ProductSerializer(category)
+    return ok_with_data(data=serializer.data, msg='ok')
+
+
 @api_view(['POST'])
 def addProduct(request):
     # get the data
