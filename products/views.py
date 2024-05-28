@@ -71,14 +71,9 @@ def updateProduct(request):
 
 
 @api_view(['DELETE'])
-def deleteProduct(request):
-    # get id
-    product_id = request.data.get('id')
-    if not product_id:
-        return error_with_msg(msg='id is required!')
-
+def deleteProduct(request, id):
     # check if the product exists
-    product = get_object_or_404(Product, pk=product_id)
+    product = get_object_or_404(Product, pk=id)
 
     # delete the product
     product.delete()
