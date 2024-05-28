@@ -34,10 +34,10 @@ class Product(models.Model):
 class Sale(models.Model):
     sale_no = models.CharField(max_length=32)
     date = models.DateField(auto_now_add=True)
-    paid = models.IntegerField()
+    paid = models.IntegerField(null=True)
     payment_method = models.CharField(max_length=32, default=' ')
-    change = models.IntegerField()
-    total_amount = models.IntegerField()
+    change = models.IntegerField(null=True)
+    total_amount = models.IntegerField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -53,3 +53,6 @@ class SaleDetails(models.Model):
     sold_for = models.IntegerField()
     quantity = models.IntegerField()
     note = models.CharField(max_length=64)
+
+    class Meta:
+        db_table ='sale_details'
