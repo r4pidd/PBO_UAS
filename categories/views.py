@@ -23,6 +23,16 @@ def getCategory(request):
     serializer = CategorySerializer(categories, many=True)
     return ok_with_data(data=serializer.data, msg='ok')
 
+@api_view(['GET'])
+def getCategoryById(request, id):
+    try:
+        category = ProductCategory.objects.get(pk=id)
+    except ProductCategory.DoesNotExist:
+        return error_with_msg(msg='category not found')
+
+    serializer = CategorySerializer(category)
+    return ok_with_data(data=serializer.data, msg='ok')
+
 
 @api_view(['POST'])
 def addCategory(request):
