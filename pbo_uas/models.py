@@ -1,5 +1,20 @@
 from django.db import models
 
+
+class AgeRange(models.TextChoices):
+    A_20 = '1', '<20'
+    A_30 = '2', '20-29'
+    A_40 = '3', '30-39'
+    A_50 = '4', '40-49'
+    A_60 = '5', '50-59'
+    OTHER = '6', '>60'
+
+
+class Gender(models.TextChoices):
+    MALE = 'M', 'Male'
+    FEMALE = 'F', 'Female'
+
+
 # Create your models here.
 class ProductCategory(models.Model):
     name = models.CharField(max_length=64)
@@ -31,8 +46,11 @@ class Product(models.Model):
     class Meta:
         db_table = 'products'
 
+
 class Sale(models.Model):
     sale_no = models.CharField(max_length=32)
+    gender = models.CharField(max_length=1 ,choices=Gender.choices)
+    age = models.IntegerField(choices=AgeRange.choices)
     date = models.DateField(auto_now_add=True)
     paid = models.IntegerField(null=True)
     payment_method = models.CharField(max_length=32, default=' ')
@@ -43,6 +61,15 @@ class Sale(models.Model):
 
     class Meta:
         db_table ='sales'
+
+    @property
+    def gender_display(self):
+        return self.get_gender_display()
+
+    @property
+    def age_display(self):
+        return self.get_age_display()
+
 
 class SaleDetails(models.Model):
     # sale_id = models.ForeignKey(Sale, on_delete=models.CASCADE)
