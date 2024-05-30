@@ -34,8 +34,9 @@ def addSale(request):
 
 
 @api_view(['POST'])
-def updateSale(request, id):
-    sale = Sale.objects.get(pk=id)
+def updateSale(request):
+    sale_id = request.data.get('id')
+    sale = Sale.objects.get(pk=sale_id)
 
     UpdateSaleSerializer.update(sale, instance=sale, validated_data=request.data)
 
