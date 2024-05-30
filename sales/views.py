@@ -14,6 +14,14 @@ def getSale(request):
     return ok_with_data(data=serializer.data, msg='ok')
 
 
+@api_view(['GET'])
+def getSaleById(request, id):
+    # get all the data from db
+    sales = Sale.objects.get(pk=id)
+    serializer = GetSaleSerializer(sales, many=False)
+    return ok_with_data(data=serializer.data, msg='ok')
+
+
 @api_view(['POST'])
 def addSale(request):
     serializer = SaleSerializer(data=request.data)
