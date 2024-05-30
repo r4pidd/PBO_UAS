@@ -78,7 +78,42 @@ class GetSaleSerializer(serializers.ModelSerializer):
         model = Sale
         fields = ['id', 'sale_no', 'date', 'paid', 'payment_method', 'change', 'total_amount', 'details']
 
-    def get_details(self,obj):
+    def get_details(self, obj):
         sale_details = SaleDetails.objects.filter(sale_id=obj.id)
         return SaleDetailSerializer(sale_details, many=True).data
 
+
+class UpdateSaleSerializer(serializers.ModelSerializer):
+    details = SaleDetailSerializer(many=True)
+
+    # details = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Sale
+        # fields = ['id', 'sale_no', 'date', 'paid', 'payment_method', 'change', 'total_amount', 'details']
+        fields = ['id', 'sale_no', 'date', 'paid', 'payment_method', 'change', 'total_amount']
+
+    # def get_details(self, obj):
+    #     sale_details = SaleDetails.objects.filter(sale_id=obj.id)
+    #     return SaleDetailSerializer(sale_details, many=True).data
+
+    def update(self, instance, validated_data):
+        print(f"Product category_id:")
+        details_data = validated_data.pop('details', None)
+        instance.sale_no = validated_data.get('sale_no', instance.sale_no)
+        instance.date = validated_data.get('date', instance.date)
+        instance.paid = validated_data.get('paid', instance.paid)
+        instance.payment_method = validated_data.get('payment_method', instance.payment_method)
+        instance.change = validated_data.get('change', instance.change)
+        instance.total_amount = validated_data.get('total_amount', instance.total_amount)
+        instance.save()
+        print(details_data)
+        if details_data is not None:
+            # Delete existing sale details
+            SaleDetails.objects.filter(sale_id=instance.id).delete()
+            # Recreate new sale details
+            for detail_data in details_data:
+                detail_data['sale_id'] = instance.id
+                SaleDetailSerializer().create(detail_data)
+
+        return instance
