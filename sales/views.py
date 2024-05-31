@@ -1,15 +1,35 @@
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 from django.shortcuts import get_object_or_404
 from sales.serializers import SaleSerializer, GetSaleSerializer, UpdateSaleSerializer, SaleDetailSerializer
 from pbo_uas.models import Sale, SaleDetails
 from pbo_uas.response import ok_with_msg, ok_with_data, error_with_msg, error_with_data
+from django.utils.dateparse import parse_date
 import logging
 
 
 @api_view(['GET'])
 def getSale(request):
     # get all the data from db
-    sales = Sale.objects.all()
+    start_date = request.query_params.get('start')
+    end_date = request.query_params.get('end')
+
+    if start_date and end_date:
+        try:
+            start_date = parse_date(start_date)
+            end_date = parse_date(end_date)
+        except ValueError:
+            # return Response({"error": "Invalid date format"}, status=status.HTTP_400_BAD_REQUEST)
+            return error_with_msg(msg="Invalid date format")
+
+        if not start_date or not end_date:
+            # return Response({"error": "Invalid date format"}, status=status.HTTP_400_BAD_REQUEST)
+            return error_with_msg(msg="Invalid date format")
+        sales = Sale.objects.filter(date__range=(start_date, end_date)).all()
+    else:
+        sales = Sale.objects.all()
+
     serializer = GetSaleSerializer(sales, many=True)
     return ok_with_data(data=serializer.data, msg='ok')
 
