@@ -14,6 +14,7 @@ def getSale(request):
     # get all the data from db
     start_date = request.query_params.get('start')
     end_date = request.query_params.get('end')
+    order_by = '-date' if request.query_params.get('desc') == 'false' else 'date'
 
     if start_date and end_date:
         try:
@@ -26,9 +27,9 @@ def getSale(request):
         if not start_date or not end_date:
             # return Response({"error": "Invalid date format"}, status=status.HTTP_400_BAD_REQUEST)
             return error_with_msg(msg="Invalid date format")
-        sales = Sale.objects.filter(date__range=(start_date, end_date)).all()
+        sales = Sale.objects.filter(date__range=(start_date, end_date)).order_by(order_by).all()
     else:
-        sales = Sale.objects.all()
+        sales = Sale.objects.order_by(order_by).all()
 
     serializer = GetSaleSerializer(sales, many=True)
     return ok_with_data(data=serializer.data, msg='ok')
