@@ -62,9 +62,6 @@ def predict(nama: str, umur: float, kode: str, metode_pembayaran: str, hari: str
         else:
             return -1  # or len(le[column].classes_) for a new unique label
 
-    # for column in ['Hari', 'Nama', 'Kode', 'Unit', 'Metode Pembayaran']:
-    #     df[column] = le[column].transform(df[column].astype(str))
-
     for column in ['Hari', 'Nama', 'Kode', 'Unit', 'Metode Pembayaran']:
         df[column] = df[column].apply(lambda x: transform_label(column, x))
 
@@ -73,7 +70,6 @@ def predict(nama: str, umur: float, kode: str, metode_pembayaran: str, hari: str
 
     df['Umur'] = umur_scaler.transform(df['Umur'].values.reshape(-1, 1))
 
-    rf_loaded_model = load('RandomForestRegression.joblib')
-    rf_loaded_pred_scaled = rf_loaded_model.predict(df)
+    rf_loaded_pred_scaled = model.predict(df)
     rf_loaded_pred = kuantitas_scaler.inverse_transform(rf_loaded_pred_scaled.reshape(-1,1))
     return int(round(rf_loaded_pred[0][0],0))
