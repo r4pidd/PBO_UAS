@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 import pandas as pd
 
 from django.shortcuts import render
@@ -11,10 +12,16 @@ from joblib import load
 
 
 # Load the model and encoders
-model = load('ml/machine/RandomForestRegression.joblib')
-le = load('ml/machine/le_encoders.pkl')
-umur_scaler = load('ml/machine/umur_scaler.pkl')
-kuantitas_scaler = load('ml/machine/kuantitas_scaler.pkl')
+current_dir = os.path.dirname(os.path.realpath(__file__))
+model = os.path.join(current_dir, 'machine/RandomForestRegression.joblib')
+le = os.path.join(current_dir, 'machine/le_encoders.pkl')
+umur_scaler = os.path.join(current_dir, 'machine/umur_scaler.pkl')
+kuantitas_scaler = os.path.join(current_dir, 'machine/kuantitas_scaler.pkl')
+
+# model = load('ml/machine/RandomForestRegression.joblib')
+# le = load('ml/machine/le_encoders.pkl')
+# umur_scaler = load('ml/machine/umur_scaler.pkl')
+# kuantitas_scaler = load('ml/machine/kuantitas_scaler.pkl')
 
 
 # @csrf_exempt
