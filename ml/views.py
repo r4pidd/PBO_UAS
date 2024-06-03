@@ -13,22 +13,24 @@ from joblib import load
 
 # Load the model and encoders
 current_dir = os.path.dirname(os.path.realpath(__file__))
-model = os.path.join(current_dir, 'machine/RandomForestRegression.joblib')
-le = os.path.join(current_dir, 'machine/le_encoders.pkl')
-umur_scaler = os.path.join(current_dir, 'machine/umur_scaler.pkl')
-kuantitas_scaler = os.path.join(current_dir, 'machine/kuantitas_scaler.pkl')
+model_path = os.path.join(current_dir, 'machine/RandomForestRegression.joblib')
+le_path = os.path.join(current_dir, 'machine/le_encoders.pkl')
+umur_scaler_path = os.path.join(current_dir, 'machine/umur_scaler.pkl')
+kuantitas_scaler_path = os.path.join(current_dir, 'machine/kuantitas_scaler.pkl')
 
-# model = load('ml/machine/RandomForestRegression.joblib')
-# le = load('ml/machine/le_encoders.pkl')
-# umur_scaler = load('ml/machine/umur_scaler.pkl')
-# kuantitas_scaler = load('ml/machine/kuantitas_scaler.pkl')
+# Load the model and scalers
+model = load(model_path)
+le = load(le_path)
+umur_scaler = load(umur_scaler_path)
+kuantitas_scaler = load(kuantitas_scaler_path)
 
 
 # @csrf_exempt
 @api_view(['POST'])
 def pred_qty(request):
     try:
-        data = json.loads(request.body)
+        body_unicode = request.body.decode('utf-8')
+        data = json.loads(body_unicode)
 
         name = data.get('name')
         date = data.get('date')
