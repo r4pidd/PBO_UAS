@@ -62,19 +62,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'pbo_uas.urls'
 
-redislite_db_path = 'redis.db'
-redis_url = f'redis+redislite://{redislite_db_path}'
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': redis_url,
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    }
-}
-
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_CACHE_ALIAS = 'default'
 
