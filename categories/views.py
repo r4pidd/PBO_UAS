@@ -1,4 +1,6 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from pbo_uas.models import ProductCategory
 from categories.serializers import CategorySerializer
@@ -6,6 +8,8 @@ from pbo_uas.response import ok_with_msg, ok_with_data, error_with_msg
 
 
 @api_view(['GET'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def getCategory(request):
     name = request.query_params.get('name', None)
     id = request.query_params.get('id', None)
@@ -24,6 +28,8 @@ def getCategory(request):
     return ok_with_data(data=serializer.data, msg='ok')
 
 @api_view(['GET'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def getCategoryById(request, id):
     try:
         category = ProductCategory.objects.get(pk=id)
@@ -35,6 +41,8 @@ def getCategoryById(request, id):
 
 
 @api_view(['POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def addCategory(request):
     # get the data
     serializer = CategorySerializer(data=request.data)
@@ -48,6 +56,8 @@ def addCategory(request):
 
 
 @api_view(['POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def updateCategory(request):
     # get id
     category_id = request.data.get('id')
@@ -69,6 +79,8 @@ def updateCategory(request):
 
 
 @api_view(['DELETE'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def deleteCategory(request, id):
     # check if the category exists
     category = get_object_or_404(ProductCategory, pk=id)
