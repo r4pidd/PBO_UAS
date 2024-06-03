@@ -1,4 +1,5 @@
 import redis
+import redislite
 from django.contrib.auth.models import User
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
@@ -8,7 +9,10 @@ USER_TOKEN_KEY = 'user_tokens'
 USER_TOKEN_EXPIRES_KEY_SECOND = 3600
 
 # Connect to Redis
-redis_client = redis.StrictRedis(host='localhost', port=6379, db=1)
+# redis_client = redis.StrictRedis(host='localhost', port=6379, db=1)
+
+REDISLITE_PATH = 'redis.db'
+redis_client = redislite.Redis(REDISLITE_PATH)
 
 def generate_and_save_token(user_id):
     import uuid
