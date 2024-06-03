@@ -24,3 +24,11 @@ def error_with_data(data, msg):
 
 def error_with_msg(msg):
     return result(ERROR, None, msg, status.HTTP_400_BAD_REQUEST, False)
+
+def error_not_logged_in(msg):
+    return JsonResponse({
+        "code": status.HTTP_401_UNAUTHORIZED,
+        "success": False,
+        "msg": msg,
+        "data": None,
+    }, safe=False)
