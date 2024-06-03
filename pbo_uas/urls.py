@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.decorators.csrf import csrf_exempt
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +26,7 @@ urlpatterns = [
     path('api/category', include('categories.urls')),
     path('api/sale', include('sales.urls')),
     path('api/ml', include('ml.urls'))
+    path('api/login', views.login, name='login'),
+    path('api/logout', csrf_exempt(views.logout), name='logout'),
+    path('api/get-csrf', views.get_csrf_token, name='get_csrf_token')
 ]
