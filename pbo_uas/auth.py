@@ -1,4 +1,3 @@
-import redis
 import redislite
 from django.contrib.auth.models import User
 from rest_framework.authentication import BaseAuthentication
