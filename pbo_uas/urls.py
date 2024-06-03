@@ -25,7 +25,7 @@ urlpatterns = [
     path('api/product', include('products.urls')),
     path('api/category', include('categories.urls')),
     path('api/sale', include('sales.urls')),
-    path('api/ml', include('ml.urls'))
+    path('api/ml', include('ml.urls')),
     path('api/login', views.login, name='login'),
     path('api/logout', csrf_exempt(views.logout), name='logout'),
     path('api/get-csrf', views.get_csrf_token, name='get_csrf_token')
