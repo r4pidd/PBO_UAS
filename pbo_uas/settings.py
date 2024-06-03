@@ -42,21 +42,11 @@ INSTALLED_APPS = [
     'products',
     'pbo_uas',
     'rest_framework',
+    'rest_framework.authtoken',
     "categories.apps.CategoriesConfig",
     'corsheaders',
     'django_redis',
 ]
-
-# # Redis Cache settings
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django_redis.cache.RedisCache",
-#         "LOCATION": "redis://127.0.0.1:6379/1",  # Adjust the location if your Redis server is different
-#         "OPTIONS": {
-#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-#         }
-#     }
-# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -67,7 +57,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'pbo_uas.middleware.TokenAuthMiddleware',
+    # 'pbo_uas.middleware.TokenAuthMiddleware',
 ]
 
 ROOT_URLCONF = 'pbo_uas.urls'
