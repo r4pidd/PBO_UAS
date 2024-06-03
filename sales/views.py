@@ -1,15 +1,17 @@
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
 from django.shortcuts import get_object_or_404
-from sales.serializers import SaleSerializer, GetSaleSerializer, UpdateSaleSerializer, SaleDetailSerializer
+from sales.serializers import SaleSerializer, GetSaleSerializer, UpdateSaleSerializer
 from pbo_uas.models import Sale, SaleDetails
-from pbo_uas.response import ok_with_msg, ok_with_data, error_with_msg, error_with_data
+from pbo_uas.response import ok_with_msg, ok_with_data, error_with_msg
 from django.utils.dateparse import parse_date
-import logging
 
 
 @api_view(['GET'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def getSale(request):
     # get all the data from db
     start_date = request.query_params.get('start')
@@ -36,6 +38,8 @@ def getSale(request):
 
 
 @api_view(['GET'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def getSaleById(request, id):
     # get all the data from db
     sales = Sale.objects.get(pk=id)
@@ -44,6 +48,8 @@ def getSaleById(request, id):
 
 
 @api_view(['POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def addSale(request):
     serializer = SaleSerializer(data=request.data)
 
@@ -55,6 +61,8 @@ def addSale(request):
 
 
 @api_view(['POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def updateSale(request):
     sale_id = request.data.get('id')
     sale = Sale.objects.get(pk=sale_id)
@@ -67,6 +75,8 @@ def updateSale(request):
 
 
 @api_view(['DELETE'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def deleteSale(request, id):
     sale = get_object_or_404(Sale, pk=id)
 
@@ -75,4 +85,3 @@ def deleteSale(request, id):
     sale.delete()
 
     return ok_with_msg(msg='Sale deleted successfully!')
-

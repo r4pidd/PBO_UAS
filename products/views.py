@@ -1,11 +1,14 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from products.serializers import ProductSerializer
 from pbo_uas.models import Product
 from pbo_uas.response import ok_with_msg, ok_with_data, error_with_msg
 
-
 @api_view(['GET'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def getProduct(request):
     name = request.query_params.get('name', None)
     category_id = request.query_params.get('category_id', None)
@@ -26,6 +29,8 @@ def getProduct(request):
 
 
 @api_view(['GET'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def getProductById(request, id):
     try:
         category = Product.objects.get(pk=id)
@@ -37,6 +42,8 @@ def getProductById(request, id):
 
 
 @api_view(['POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def addProduct(request):
     # get the data
     serializer = ProductSerializer(data=request.data)
@@ -50,6 +57,8 @@ def addProduct(request):
 
 
 @api_view(['POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def updateProduct(request):
     # get id
     product_id = request.data.get('id')
@@ -71,6 +80,8 @@ def updateProduct(request):
 
 
 @api_view(['DELETE'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def deleteProduct(request, id):
     # check if the product exists
     product = get_object_or_404(Product, pk=id)
