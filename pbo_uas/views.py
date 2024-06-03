@@ -1,5 +1,4 @@
 from django.contrib.auth import authenticate
-from .auth import generate_and_save_token, delete_token
 from .response import ok_with_data, error_with_msg, ok_with_msg
 from django.middleware.csrf import get_token
 from rest_framework.authtoken.models import Token
