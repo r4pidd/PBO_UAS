@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     "categories.apps.CategoriesConfig",
     'corsheaders',
-    # 'django_redis',
+    'django_redis',
 ]
 
 # # Redis Cache settings
