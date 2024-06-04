@@ -13,7 +13,7 @@ from joblib import load
 
 # Load the model and encoders
 current_dir = os.path.dirname(os.path.realpath(__file__))
-model_path = os.path.join(current_dir, 'machine/XGBRegression.joblib')
+model_path = os.path.join(current_dir, 'machine/RandomForestRegression.joblib')
 le_path = os.path.join(current_dir, 'machine/le_encoders.pkl')
 umur_scaler_path = os.path.join(current_dir, 'machine/umur_scaler.pkl')
 kuantitas_scaler_path = os.path.join(current_dir, 'machine/kuantitas_scaler.pkl')
