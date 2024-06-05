@@ -149,4 +149,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3030',
+    'https://pbo-refine-uas.vercel.app',
 ]
