@@ -5,7 +5,9 @@ import pandas as pd
 
 from django.shortcuts import render
 from datetime import datetime
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from django.views.decorators.csrf import csrf_exempt
 from pbo_uas.response import error_with_msg, ok_with_data
 from joblib import load
@@ -27,6 +29,8 @@ kuantitas_scaler = load(kuantitas_scaler_path)
 
 # @csrf_exempt
 @api_view(['POST'])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def pred_qty(request):
     try:
         body_unicode = request.body.decode('utf-8')
