@@ -31,6 +31,7 @@ class ProductCategory(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=64)
+    code = models.CharField(max_length=64, default='')
     # category_id = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
     category_id = models.IntegerField()
     image_path = models.TextField(null=True)
