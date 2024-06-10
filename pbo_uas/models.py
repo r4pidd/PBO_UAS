@@ -77,6 +77,7 @@ class SaleDetails(models.Model):
     sale_id = models.IntegerField()
     product_id = models.IntegerField()
     product_category_id = models.IntegerField()
+    product_code = models.CharField(max_length=64)
     product_name = models.CharField(max_length=64)
     sold_for = models.IntegerField()
     quantity = models.IntegerField()

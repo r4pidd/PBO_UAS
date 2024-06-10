@@ -7,11 +7,12 @@ class SaleDetailSerializer(serializers.ModelSerializer):
     note = serializers.CharField(required=False, allow_null=True, allow_blank=True)  # Optional field
     product_category_id = serializers.IntegerField(required=False, allow_null=True)  # Optional field
     product_name = serializers.CharField(required=False, allow_null=True, allow_blank=True)  # Optional field
+    product_code = serializers.CharField(required=False, allow_null=True, allow_blank=True)  # Optional field
 
     class Meta:
         model = SaleDetails
         # Exclude sale_id, product_name, and product_category_id
-        fields = ['product_id', 'product_category_id', 'product_name', 'sold_for', 'quantity', 'note']
+        fields = ['product_id', 'product_category_id', 'product_name', 'product_code', 'sold_for', 'quantity', 'note']
 
     def create(self, validated_data):
         product_id = validated_data['product_id']
@@ -24,6 +25,7 @@ class SaleDetailSerializer(serializers.ModelSerializer):
         print(f"Product category_id: {product.category_id}")
 
         validated_data['product_name'] = product.name
+        validated_data['product_code'] = product.code
         validated_data['product_category_id'] = product.category_id
 
         return super().create(validated_data)
@@ -115,7 +117,7 @@ class UpdateSaleSerializer(serializers.ModelSerializer):
         instance.age = validated_data.get('age', instance.age)
         instance.gender = validated_data.get('gender', instance.gender)
         instance.save()
-        print(details_data)
+        
         if details_data is not None:
             # Delete existing sale details
             SaleDetails.objects.filter(sale_id=instance.id).delete()
