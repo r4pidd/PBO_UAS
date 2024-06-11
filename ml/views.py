@@ -82,7 +82,7 @@ def predict(nama: str, umur: float, kode: str, metode_pembayaran: str, hari: str
         df[column] = df[column].apply(lambda x: transform_label(column, x))
 
     if unseen_label[0]:
-        return 0
+        return 1
 
 
     df['Tanggal'] = pd.to_datetime(df['Tanggal'])
