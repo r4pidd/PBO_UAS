@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.utils import timezone
 from django.db import transaction
 from pbo_uas.models import Sale, SaleDetails, Product
 
@@ -66,6 +67,8 @@ class SaleSerializer(serializers.ModelSerializer):
         details_data = validated_data.pop('details')
         sale = Sale.objects.create(**validated_data)
         total_amount = 0
+        if 'date' not in validated_data:
+            validated_data['date'] = timezone.now().date()
 
         for detail_data in details_data:
             total_amount = total_amount + detail_data['sold_for'] * detail_data['quantity']

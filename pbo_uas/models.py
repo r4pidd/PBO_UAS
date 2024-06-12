@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 
 
@@ -52,7 +53,8 @@ class Sale(models.Model):
     sale_no = models.CharField(max_length=32)
     gender = models.CharField(max_length=1 ,choices=Gender.choices)
     age = models.IntegerField(choices=AgeRange.choices)
-    date = models.DateField(auto_now_add=True)
+    # date = models.DateField(auto_now_add=True)
+    date = models.DateField(default=timezone.now)
     paid = models.IntegerField(null=True)
     payment_method = models.CharField(max_length=32, default=' ')
     change = models.IntegerField(null=True)
